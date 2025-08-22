@@ -81,7 +81,7 @@ async function gameTick() {
 async function getBackground(bg) {
   document.body.innerHTML = "<h1>Please wait...</h1>"
   
-  let temp = await fetch(`https://raw.githubusercontent.com/webtec-2024/teacher/refs/heads/main/kmom06/backgrounds/${bg}.jpg`)
+  let temp = await fetch(`https://raw.githubusercontent.com/bth-webtec/teacher/refs/heads/main/kmom06/backgrounds/${bg}.jpg`)
   let blob = await temp.blob()
   backgroundImage = URL.createObjectURL(blob)
 
@@ -97,7 +97,7 @@ async function getBackground(bg) {
  * Also adds the eventlistener.
  */
 async function getDuck() {
-  let temp = await fetch(`https://raw.githubusercontent.com/webtec-2024/teacher/refs/heads/main/kmom06/duck/duck.png`)
+  let temp = await fetch(`https://raw.githubusercontent.com/bth-webtec/teacher/refs/heads/main/kmom06/duck/duck.png`)
   let blob = await temp.blob()
 
   gameObj.duck.element.src = URL.createObjectURL(blob)

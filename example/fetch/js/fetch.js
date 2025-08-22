@@ -1,6 +1,6 @@
 let selectBox = document.getElementById("year")
 let tableBody = document.getElementById("tableBody")
-let url = "https://raw.githubusercontent.com/webtec-2024/teacher/refs/heads/main/kmom05/data/"
+let url = "https://raw.githubusercontent.com/bth-webtec/teacher/refs/heads/main/kmom05/data/"
 
 
 for (let i = 1900; i < 2020; i++) {
