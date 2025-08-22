@@ -46,6 +46,7 @@ usage ()
 "  members                          Get all members on the organisation of GitHub."
 "  members <team>                   Get all members in a specific team."
 "  membership <acronym>             Check if acronym is member of the organisation."
+"  pages <name>                     Get details of GitHub pages for a repo."
 "  repo <name>                      Get details of a repo."
 "  user                             Get details of your own user (troubleshoot the token)."
 ""
@@ -191,6 +192,33 @@ app_membership ()
 
 
 ##
+# Get details of the pages setup.
+#
+# @arg string repo   The repo name.
+#
+app_pages ()
+{
+    local repo="$1"
+    local url="$GITHUB_API_URL/repos/$GITHUB_ORGANISATION/$repo/pages"
+    local auth="Authorization: Bearer $GITHUB_ACCESS_TOKEN"
+    local accept="Accept: application/vnd.github+json"
+    local res=
+
+    (( $# != 1)) \
+        && fail "This command requires one argument <repo name>."
+
+    res=$( curl --silent "$url" -H "$auth" -H "$accept" )
+
+    if (( VERBOSE )); then
+        echo "$res" | jq
+    else
+        echo "$res" | jq '{ "html_url": .html_url }'
+    fi
+}
+
+
+
+##
 # Get details of a repo.
 #
 # @arg string repo   The repo name.
@@ -211,7 +239,7 @@ app_repo ()
     if (( VERBOSE )); then
         echo "$res" | jq
     else
-        echo "$res" | jq '{url, state, role}'
+        echo "$res" | jq '{ "repo": .name, "html_url": .html_url }'
     fi
 }
 
@@ -289,6 +317,7 @@ main ()
             invite           \
             | members        \
             | membership     \
+            | pages          \
             | repo           \
             | user           \
             )
